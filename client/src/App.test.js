@@ -14,9 +14,34 @@ test("PlayerList component renders without crashing", () => {
   render(<PlayerList />);
 });
 
-test("should display searches", async () => {
-  const { getByText } = render(
-    <PlayerList url={"http://localhost:5000/api/players"} />
-  );
-  await waitForElement(() => getByText(/searches:/i));
+test("should display player name", () => {
+  const playerInfo = {
+    name: "test"
+  };
+  const playerCard = render(<Player player={playerInfo} />);
+  playerCard.getByText(/test/);
+});
+
+test("Should display number of searches", () => {
+  const playerInfo = {
+    searches: 100
+  };
+  const playerCard = render(<Player player={playerInfo} />);
+  playerCard.getByText(/Searches: 100/);
+});
+
+test("Should display player's country", () => {
+  const playerInfo = {
+    country: "USA"
+  };
+  const playerCard = render(<Player player={playerInfo} />);
+  playerCard.getByText(/Country: USA/);
+});
+
+test("Should display player's search rank", () => {
+  const playerInfo = {
+    rank: 1
+  };
+  const playerCard = render(<Player player={playerInfo} />);
+  playerCard.getByText(/Search Rank:/);
 });
